@@ -1,4 +1,7 @@
 #include "ArrayDinamico.hpp"
+#include "Atributo.hpp"
+#include "Aventureiro.hpp"
+#include "Item.hpp"
 
 template <typename T>
 void ArrayDinamico<T>::aumentar_array()
@@ -98,3 +101,7 @@ void ArrayDinamico<T>::add_elemento_pos(const T& elemento, int index)
     this->dados[index] = elemento;
     this->tamanho++;
 }
+
+template class ArrayDinamico<Atributo>;
+template class ArrayDinamico<Item>;
+template class ArrayDinamico<Aventureiro>;

@@ -2,18 +2,24 @@
 
 int Item::count = 0;
 
+Item::Item()
+{
+    this->id = -1;
+    this->nome = "";
+}
+
 Item::Item(const std::string& nome)
     : nome(nome)
 {
-    id = ++count;
+    this->id = count++;
 }
 
 int Item::get_id()
 {
-    return id;
+    return this->id;
 }
 
 std::string Item::get_nome()
 {
-    return nome;
+    return this->nome;
 }

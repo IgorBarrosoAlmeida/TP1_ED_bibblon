@@ -10,6 +10,7 @@ private:
     std::string nome;
 
 public:
+    Atributo();
     Atributo(const std::string& nome);
 
     int get_id();

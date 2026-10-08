@@ -10,6 +10,7 @@ private:
     std::string nome;
 
 public:
+    Item();
     Item(const std::string& nome);
 
     int get_id();
