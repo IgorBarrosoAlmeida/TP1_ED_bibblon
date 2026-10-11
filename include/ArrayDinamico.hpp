@@ -1,6 +1,6 @@
 #ifndef ARRAY_DINAMICO_HPP
 #define ARRAY_DINAMICO_HPP
-#define MAX_INICIAL 4 // TO-DO: mudar para um numero maior antes de mandar
+#define MAX_INICIAL 1 // TO-DO: mudar para ser uma variavel do construtor
 #include <stdexcept>
 
 // TAD para a criação de um array dinamico que tem um tamanho fixo
@@ -28,6 +28,10 @@ public:
     void add_elemento_final(const T& elemento);
     void add_elemento_inicio(const T& elemento);
     void add_elemento_pos(const T& elemento, int index);
+
+    T remove_elemento_final();
+    T remove_elemento_inicio();
+    T remove_elemento_pos(int index);
 };
 
 #endif

@@ -11,6 +11,7 @@ Aventureiro::Aventureiro(const std::string& nome)
     : nome(nome)
 {
     id = count++;
+    this->build = PilhaBuild();
 }
 
 int Aventureiro::get_id()

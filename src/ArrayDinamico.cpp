@@ -1,6 +1,7 @@
 #include "ArrayDinamico.hpp"
 #include "Atributo.hpp"
 #include "Aventureiro.hpp"
+#include "FilaEncomenda.hpp"
 #include "Item.hpp"
 
 template <typename T>
@@ -64,18 +65,6 @@ void ArrayDinamico<T>::set_elemento(const T& elemento, int index)
 }
 
 template <typename T>
-void ArrayDinamico<T>::add_elemento_final(const T& elemento)
-{
-    this->add_elemento_pos(elemento, this->tamanho);
-}
-
-template <typename T>
-void ArrayDinamico<T>::add_elemento_inicio(const T& elemento)
-{
-    this->add_elemento_pos(elemento, 0);
-}
-
-template <typename T>
 void ArrayDinamico<T>::add_elemento_pos(const T& elemento, int index)
 {
     if (index < 0 || index > this->tamanho) {
@@ -102,6 +91,55 @@ void ArrayDinamico<T>::add_elemento_pos(const T& elemento, int index)
     this->tamanho++;
 }
 
+template <typename T>
+void ArrayDinamico<T>::add_elemento_final(const T& elemento)
+{
+    this->add_elemento_pos(elemento, this->tamanho);
+}
+
+template <typename T>
+void ArrayDinamico<T>::add_elemento_inicio(const T& elemento)
+{
+    this->add_elemento_pos(elemento, 0);
+}
+
+template <typename T>
+T ArrayDinamico<T>::remove_elemento_pos(int index)
+{
+    if (this->tamanho == 0) {
+        throw std::out_of_range("Array vazio");
+    }
+
+    if (index < 0 || index >= this->tamanho) {
+        throw std::out_of_range("Indice fora do limite para remocao");
+    }
+
+    // Salva o elemento antes de sobrescrevê-lo para poder retorná-lo
+    T elemento_removido = this->dados[index];
+
+    // Desloca todos os elementos à direita do índice uma posição para a esquerda
+    for (int i = index; i < this->tamanho - 1; i++) {
+        this->dados[i] = this->dados[i + 1];
+    }
+
+    this->tamanho--;
+
+    return elemento_removido;
+}
+
+template <typename T>
+T ArrayDinamico<T>::remove_elemento_final()
+{
+    return this->remove_elemento_pos(this->tamanho - 1);
+}
+
+template <typename T>
+T ArrayDinamico<T>::remove_elemento_inicio()
+{
+    return this->remove_elemento_pos(0);
+}
+
 template class ArrayDinamico<Atributo>;
 template class ArrayDinamico<Item>;
 template class ArrayDinamico<Aventureiro>;
+template class ArrayDinamico<Encomenda>;

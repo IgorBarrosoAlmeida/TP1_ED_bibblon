@@ -1,6 +1,7 @@
 #ifndef AVENTUREIRO_HPP
 #define AVENTUREIRO_HPP
 
+#include "PilhaBuild.hpp"
 #include <string>
 
 class Aventureiro {
@@ -10,6 +11,8 @@ private:
     std::string nome;
 
 public:
+    PilhaBuild build;
+
     Aventureiro();
     Aventureiro(const std::string& nome);
 

@@ -1,6 +1,8 @@
 #include "ArrayDinamico.hpp"
 #include "Atributo.hpp"
 #include "Aventureiro.hpp"
+#include "Encomenda.hpp"
+#include "FilaEncomenda.hpp"
 #include "Item.hpp"
 #include <fstream>
 #include <iostream>
@@ -17,6 +19,7 @@ int main()
     ArrayDinamico<Atributo> atributos;
     ArrayDinamico<Item> itens;
     ArrayDinamico<Aventureiro> aventureiros;
+    FilaEncomenda fila_de_encomendas = FilaEncomenda(1); // TO-DO: Mudar depois para um número maior
 
     if (!arquivo.is_open()) {
         std::cout << "Erro ao abrir o arquivo!" << std::endl;
@@ -60,6 +63,43 @@ int main()
             aventureiros.add_elemento_final(novo_aventureiro);
 
             std::cout << comando << " " << novo_aventureiro.get_id() << std::endl;
+        } else if (comando == "F") {
+            // Adicionar encomenda na fila
+            int id_aventureiro, id_item;
+            arquivo >> id_aventureiro;
+            arquivo >> id_item;
+
+            Encomenda nova_encomenda;
+            nova_encomenda.id_aventureiro = id_aventureiro;
+            nova_encomenda.id_item = id_item;
+
+            int pos = fila_de_encomendas.enfileirar(nova_encomenda);
+            std::cout << "F " << pos << std::endl;
+        } else if (comando == "Z") {
+            int turnos;
+            ArrayDinamico<Encomenda> forjadas;
+
+            arquivo >> turnos;
+            // Trabalha nos turnos
+            for (int i = 0; i < turnos; i++) {
+                try {
+                    Encomenda enc = fila_de_encomendas.desenfileirar();
+                    forjadas.add_elemento_final(enc);
+
+                    aventureiros.get_elemento(enc.id_aventureiro).build.equipar(enc.id_item);
+                } catch (const std::out_of_range& e) {
+                    // Tentou forjar, mas a fila estava vazia, portanto encerra os turnos
+                    break;
+                }
+            }
+
+            std::cout << "Z " << forjadas.get_tamanho() << std::endl;
+
+            for (int i = 0; i < forjadas.get_tamanho(); i++) {
+                Encomenda encomenda_forjada = forjadas.get_elemento(i);
+                std::cout << "encomenda_" << i + 1 << " " << encomenda_forjada.id_aventureiro << " " << encomenda_forjada.id_item;
+            }
+            std::cout << std::endl;
         }
     }
 
