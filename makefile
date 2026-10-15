@@ -3,9 +3,12 @@ CXXFLAGS := -std=c++17 -Wall -Wextra -Iinclude
 SOURCES := $(wildcard src/*.cpp)
 TARGET := bin/main.exe
 
-.PHONY: all clean
+.PHONY: all run clean
 
 all: $(TARGET)
+
+run: $(TARGET)
+	./$(TARGET)
 
 $(TARGET): $(SOURCES) $(wildcard include/*.hpp)
 	$(CXX) $(CXXFLAGS) $(SOURCES) -o $(TARGET)

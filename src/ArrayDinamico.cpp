@@ -26,6 +26,39 @@ ArrayDinamico<T>::ArrayDinamico()
     this->dados = new T[MAX_INICIAL];
 }
 
+// TO-DO: Entender essa implementação
+template <typename T>
+ArrayDinamico<T>::ArrayDinamico(const ArrayDinamico& outro)
+    : tamanho(outro.tamanho)
+    , max(outro.max)
+    , dados(nullptr)
+{
+    T* copia = new T[this->max];
+    try {
+        for (int i = 0; i < this->tamanho; i++) {
+            copia[i] = outro.dados[i];
+        }
+    } catch (...) {
+        delete[] copia;
+        throw;
+    }
+    this->dados = copia;
+}
+
+template <typename T>
+ArrayDinamico<T>& ArrayDinamico<T>::operator=(const ArrayDinamico& outro)
+{
+    if (this != &outro) {
+        ArrayDinamico copia(outro);
+        T* dados_anteriores = this->dados;
+        this->tamanho = copia.tamanho;
+        this->max = copia.max;
+        this->dados = copia.dados;
+        copia.dados = dados_anteriores;
+    }
+    return *this;
+}
+
 template <typename T>
 ArrayDinamico<T>::~ArrayDinamico()
 {
@@ -45,7 +78,17 @@ int ArrayDinamico<T>::get_max()
 }
 
 template <typename T>
-T ArrayDinamico<T>::get_elemento(int index)
+T& ArrayDinamico<T>::get_elemento(int index)
+{
+    if (index < 0 || index >= this->tamanho) {
+        throw std::out_of_range("Indice fora do limite");
+    }
+
+    return this->dados[index];
+}
+
+template <typename T>
+const T& ArrayDinamico<T>::get_elemento(int index) const
 {
     if (index < 0 || index >= this->tamanho) {
         throw std::out_of_range("Indice fora do limite");
@@ -143,3 +186,5 @@ template class ArrayDinamico<Atributo>;
 template class ArrayDinamico<Item>;
 template class ArrayDinamico<Aventureiro>;
 template class ArrayDinamico<Encomenda>;
+template class ArrayDinamico<Tripleta>;
+template class ArrayDinamico<int>;

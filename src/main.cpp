@@ -1,7 +1,7 @@
 #include "ArrayDinamico.hpp"
 #include "Atributo.hpp"
 #include "Aventureiro.hpp"
-#include "Encomenda.hpp"
+#include "Estruturas.hpp"
 #include "FilaEncomenda.hpp"
 #include "Item.hpp"
 #include <fstream>
@@ -76,6 +76,7 @@ int main()
             int pos = fila_de_encomendas.enfileirar(nova_encomenda);
             std::cout << "F " << pos << std::endl;
         } else if (comando == "Z") {
+            // Execução dos turnos de trabalho
             int turnos;
             ArrayDinamico<Encomenda> forjadas;
 
@@ -97,9 +98,27 @@ int main()
 
             for (int i = 0; i < forjadas.get_tamanho(); i++) {
                 Encomenda encomenda_forjada = forjadas.get_elemento(i);
-                std::cout << "encomenda_" << i + 1 << " " << encomenda_forjada.id_aventureiro << " " << encomenda_forjada.id_item;
+                std::cout << "encomenda_" << i + 1 << " " << encomenda_forjada.id_aventureiro << " " << encomenda_forjada.id_item << " ";
             }
             std::cout << std::endl;
+        } else if (comando == "D") {
+            // Desequipar um item de um aventureiro
+            int id_aventureiro, id_item = -1;
+            arquivo >> id_aventureiro;
+
+            try {
+                id_item = aventureiros.get_elemento(id_aventureiro).build.desequipar();
+            } catch (...) {
+            }
+
+            std::string nome_aventureiro = aventureiros.get_elemento(id_aventureiro).get_nome();
+            if (id_item != -1) {
+                std::string nome_item = itens.get_elemento(id_item).get_nome();
+
+                std::cout << "D " << nome_aventureiro << " " << nome_item << std::endl;
+            } else {
+                std::cout << "D " << nome_aventureiro << " VAZIO" << std::endl;
+            }
         }
     }
 

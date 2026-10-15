@@ -17,12 +17,15 @@ private:
 
 public:
     ArrayDinamico();
+    ArrayDinamico(const ArrayDinamico& outro);
+    ArrayDinamico& operator=(const ArrayDinamico& outro);
     ~ArrayDinamico();
 
     int get_tamanho();
     int get_max();
 
-    T get_elemento(int index);
+    T& get_elemento(int index);
+    const T& get_elemento(int index) const;
     void set_elemento(const T& elemento, int index);
 
     void add_elemento_final(const T& elemento);
