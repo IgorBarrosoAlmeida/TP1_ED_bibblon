@@ -178,38 +178,23 @@ ArrayDinamico<Tripleta> MatrizModoL::get_linha(int id_item) const
     return resultado;
 }
 
-void MatrizModoL::print_coluna(int id_atributo)
+void MatrizModoL::LI(int id_item)
 {
-    if (id_atributo < 0 || id_atributo >= this->c) {
-        throw std::invalid_argument("Posição invalida");
-    }
-    Celula* p = this->cabeca_atributos[id_atributo];
-
-    for (int i = 0; i < this->l; i++) {
-        if (p->prox_atributo != NULL && p->prox_atributo->tripleta.id_item == i) {
-            std::cout << p->prox_atributo->tripleta.modificador << " ";
-            p = p->prox_atributo;
-        } else {
-            std::cout << "0 ";
-        }
-    }
-    std::cout << std::endl;
-}
-
-void MatrizModoL::print_linha(int id_item)
-{
-    if (id_item < 0 || id_item >= this->c) {
+    if (id_item < 0 || id_item >= this->l) {
         throw std::invalid_argument("Posição invalida");
     }
     Celula* p = this->cabeca_itens[id_item];
 
-    for (int j = 0; j < this->c; j++) {
-        if (p->prox_item != NULL && p->prox_item->tripleta.id_atributo == j) {
-            std::cout << p->prox_item->tripleta.modificador << " ";
-            p = p->prox_item;
-        } else {
-            std::cout << "0 ";
-        }
+    if (p->prox_item == NULL) {
+        std::cout << " VAZIO";
+        return;
     }
-    std::cout << std::endl;
+
+    int i = 1;
+    while (p->prox_item != NULL) {
+        p = p->prox_item;
+        Tripleta trip = p->tripleta;
+        std::cout << " atributo_" << i << " " << trip.id_atributo << " " << trip.modificador;
+        i++;
+    }
 }

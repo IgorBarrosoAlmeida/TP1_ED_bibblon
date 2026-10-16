@@ -31,11 +31,7 @@ public:
     int get(int id_item, int id_atributo);
     void set(int id_item, int id_atributo, int modificador);
 
-    // Imprime itens que tem um atributo
-    void print_coluna(int id_atributo);
-    // Imprime atributos de um item
-    void print_linha(int id_item);
-
+    void LI(int id_item);
     // TO-DO: suporte as operações necessárias para calculo das metricas
 };
 

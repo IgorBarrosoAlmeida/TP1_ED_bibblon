@@ -30,8 +30,7 @@ public:
     ArrayDinamico<Tripleta> get_coluna(int id_atributo) const;
     ArrayDinamico<Tripleta> get_linha(int id_item) const;
 
-    void print_coluna(int id_atributo);
-    void print_linha(int id_item);
+    void LI(int id_item);
 };
 
 #endif

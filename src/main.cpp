@@ -130,7 +130,14 @@ int main()
             arquivo >> modificador;
 
             catalogo.atualizar_modificador(id_item, id_atributo, modificador);
-            std::cout << itens.get_elemento(id_item).get_nome() << " " << atributos.get_elemento(id_atributo).get_nome() << " " << modificador << std::endl;
+            std::cout << "M " << itens.get_elemento(id_item).get_nome() << " " << atributos.get_elemento(id_atributo).get_nome() << " " << modificador << std::endl;
+        } else if (comando == "LI") {
+            int id_item;
+            arquivo >> id_item;
+
+            std::cout << "LI " << itens.get_elemento(id_item).get_nome();
+            catalogo.LI(id_item);
+            std::cout << std::endl;
         }
     }
 

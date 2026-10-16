@@ -86,3 +86,12 @@ void Catalogo::migrar_modo(char novo_modo)
 
     this->modo_atual = novo_modo;
 }
+
+void Catalogo::LI(int id_item)
+{
+    if (this->modo_atual == 'T') {
+        this->matriz_t->LI(id_item);
+    } else if (this->modo_atual == 'L') {
+        this->matriz_l->LI(id_item);
+    }
+}

@@ -32,9 +32,10 @@ void MatrizModoT::inserir(int id_item, int id_atributo, int modificador)
     nova_tripleta.modificador = modificador;
 
     int p = this->tripletas.get_tamanho();
-    if (p > 0 && (this->tripletas.get_elemento(p - 1).id_item > id_item)
-        || (this->tripletas.get_elemento(p - 1).id_atributo == id_item
-            && this->tripletas.get_elemento(p - 1).id_atributo > id_atributo)) {
+    if (p > 0
+        && (this->tripletas.get_elemento(p - 1).id_item > id_item
+            || (this->tripletas.get_elemento(p - 1).id_item == id_item
+                && this->tripletas.get_elemento(p - 1).id_atributo > id_atributo))) {
         // Quando p == tamanho e a condição acima é verdadeira, é preciso criar um novo
         // elemento no vetor para copiar o elemento da posição this->tripletas[tamanho]
         this->tripletas.add_elemento_final(this->tripletas.get_elemento(p - 1));
@@ -44,9 +45,10 @@ void MatrizModoT::inserir(int id_item, int id_atributo, int modificador)
         return;
     }
 
-    while (p > 0 && (this->tripletas.get_elemento(p - 1).id_item > id_item)
-        || (this->tripletas.get_elemento(p - 1).id_atributo == id_item
-            && this->tripletas.get_elemento(p - 1).id_atributo > id_atributo)) {
+    while (p > 0
+        && (this->tripletas.get_elemento(p - 1).id_item > id_item
+            || (this->tripletas.get_elemento(p - 1).id_item == id_item
+                && this->tripletas.get_elemento(p - 1).id_atributo > id_atributo))) {
         // Movimenta o vetor até achar a posição do novo elemento
         this->tripletas.set_elemento(this->tripletas.get_elemento(p - 1), p);
         p--;
@@ -110,33 +112,29 @@ void MatrizModoT::set(int id_item, int id_atributo, int modificador)
     }
 }
 
-void MatrizModoT::print_coluna(int id_atributo)
+void MatrizModoT::LI(int id_item)
 {
-    if (id_atributo < 0 || id_atributo >= this->c) {
+    if (id_item < 0 || id_item >= this->l) {
         throw std::invalid_argument("Posição invalida");
     }
 
-    // TO-DO: Implementar com busca binaria
+    bool encontrou = false;
+    int i = 1;
     for (int p = 0; p < this->tripletas.get_tamanho(); p++) {
         Tripleta trip = this->tripletas.get_elemento(p);
-        if (trip.id_atributo == id_atributo) {
-            std::cout << " " << trip.id_item;
+        if (trip.id_item < id_item) {
+            continue;
         }
-    }
-    std::cout << std::endl;
-}
-
-void MatrizModoT::print_linha(int id_item)
-{
-    if (id_item < 0 || id_item >= this->c) {
-        throw std::invalid_argument("Posição invalida");
-    }
-
-    for (int p = 0; p < this->tripletas.get_tamanho(); p++) {
-        Tripleta trip = this->tripletas.get_elemento(p);
-        if (trip.id_item == id_item) {
-            std::cout << " " << trip.id_atributo;
+        if (trip.id_item > id_item) {
+            break;
         }
+
+        std::cout << " atributo_" << i << " " << trip.id_atributo << " " << trip.modificador;
+        encontrou = true;
+        i++;
     }
-    std::cout << std::endl;
+
+    if (!encontrou) {
+        std::cout << " VAZIO";
+    }
 }

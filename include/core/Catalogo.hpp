@@ -16,6 +16,8 @@ public:
     void add_item();
     void add_atributo();
 
+    void LI(int id_item);
+
     void atualizar_modificador(int id_item, int id_atributo, int modificador);
     void migrar_modo(char novo_modo);
 };
