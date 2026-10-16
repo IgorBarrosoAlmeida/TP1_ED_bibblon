@@ -198,3 +198,24 @@ void MatrizModoL::LI(int id_item)
         i++;
     }
 }
+
+void MatrizModoL::LA(int id_atributo)
+{
+    if (id_atributo < 0 || id_atributo >= this->c) {
+        throw std::invalid_argument("Posição invalida");
+    }
+
+    Celula* p = this->cabeca_atributos[id_atributo];
+    if (p->prox_atributo == NULL) {
+        std::cout << " VAZIO";
+        return;
+    }
+
+    int i = 1;
+    while (p->prox_atributo != NULL) {
+        p = p->prox_atributo;
+        Tripleta trip = p->tripleta;
+        std::cout << " item_" << i << " " << trip.id_item << " " << trip.modificador;
+        i++;
+    }
+}

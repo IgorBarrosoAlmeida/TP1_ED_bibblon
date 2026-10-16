@@ -32,6 +32,7 @@ public:
     void set(int id_item, int id_atributo, int modificador);
 
     void LI(int id_item);
+    void LA(int id_atributo);
     // TO-DO: suporte as operações necessárias para calculo das metricas
 };
 

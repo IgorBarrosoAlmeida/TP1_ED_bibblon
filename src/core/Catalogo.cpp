@@ -42,6 +42,17 @@ void Catalogo::atualizar_modificador(int id_item, int id_atributo, int modificad
     }
 }
 
+int Catalogo::get_modificador(int id_item, int id_atributo)
+{
+    if (this->modo_atual == 'T') {
+        return matriz_t->get(id_item, id_atributo);
+    }
+    if (this->modo_atual == 'L') {
+        return matriz_l->get(id_item, id_atributo);
+    }
+    return 0;
+}
+
 void Catalogo::migrar_modo(char novo_modo)
 {
     if (this->modo_atual == novo_modo)
@@ -93,5 +104,14 @@ void Catalogo::LI(int id_item)
         this->matriz_t->LI(id_item);
     } else if (this->modo_atual == 'L') {
         this->matriz_l->LI(id_item);
+    }
+}
+
+void Catalogo::LA(int id_atributo)
+{
+    if (this->modo_atual == 'T') {
+        this->matriz_t->LA(id_atributo);
+    } else if (this->modo_atual == 'L') {
+        this->matriz_l->LA(id_atributo);
     }
 }

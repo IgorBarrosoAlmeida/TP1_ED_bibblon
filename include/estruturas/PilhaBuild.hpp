@@ -16,10 +16,10 @@ public:
     PilhaBuild();
 
     bool is_vazio();
+    int get_tamanho();
     void equipar(int id_item);
     int desequipar();
-
-    // TO-DO: obter_itens_equipados para calcular a SINERGIA
+    int get_item_equipado(int indice);
 };
 
 #endif

@@ -31,6 +31,7 @@ public:
     ArrayDinamico<Tripleta> get_linha(int id_item) const;
 
     void LI(int id_item);
+    void LA(int id_atributo);
 };
 
 #endif

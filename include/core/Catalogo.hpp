@@ -17,8 +17,10 @@ public:
     void add_atributo();
 
     void LI(int id_item);
+    void LA(int id_atributo);
 
     void atualizar_modificador(int id_item, int id_atributo, int modificador);
+    int get_modificador(int id_item, int id_atributo);
     void migrar_modo(char novo_modo);
 };
 

@@ -102,6 +102,7 @@ void MatrizModoT::set(int id_item, int id_atributo, int modificador)
                 this->tripletas.remove_elemento_pos(p);
             } else {
                 trip.modificador = modificador;
+                this->tripletas.set_elemento(trip, p);
             }
             return;
         }
@@ -130,6 +131,30 @@ void MatrizModoT::LI(int id_item)
         }
 
         std::cout << " atributo_" << i << " " << trip.id_atributo << " " << trip.modificador;
+        encontrou = true;
+        i++;
+    }
+
+    if (!encontrou) {
+        std::cout << " VAZIO";
+    }
+}
+
+void MatrizModoT::LA(int id_atributo)
+{
+    if (id_atributo < 0 || id_atributo >= this->c) {
+        throw std::invalid_argument("Posição invalida");
+    }
+
+    bool encontrou = false;
+    int i = 1;
+    for (int p = 0; p < this->tripletas.get_tamanho(); p++) {
+        Tripleta trip = this->tripletas.get_elemento(p);
+        if (trip.id_atributo != id_atributo) {
+            continue;
+        }
+
+        std::cout << " item_" << i << " " << trip.id_item << " " << trip.modificador;
         encontrou = true;
         i++;
     }

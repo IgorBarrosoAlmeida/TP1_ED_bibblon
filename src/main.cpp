@@ -138,6 +138,40 @@ int main()
             std::cout << "LI " << itens.get_elemento(id_item).get_nome();
             catalogo.LI(id_item);
             std::cout << std::endl;
+        } else if (comando == "LA") {
+            int id_atributo;
+            arquivo >> id_atributo;
+
+            std::cout << "LA " << atributos.get_elemento(id_atributo).get_nome();
+            catalogo.LA(id_atributo);
+            std::cout << std::endl;
+        } else if (comando == "LH") {
+            int id_aventureiro;
+            arquivo >> id_aventureiro;
+
+            Aventureiro& aventureiro = aventureiros.get_elemento(id_aventureiro);
+            std::cout << "LH " << aventureiro.get_nome();
+
+            int atributos_impressos = 0;
+            if (!aventureiro.build.is_vazio()) {
+                for (int id_atributo = 0; id_atributo < atributos.get_tamanho(); id_atributo++) {
+                    int total = 0;
+                    for (int indice_item = 0; indice_item < aventureiro.build.get_tamanho(); indice_item++) {
+                        int id_item = aventureiro.build.get_item_equipado(indice_item);
+                        total += catalogo.get_modificador(id_item, id_atributo);
+                    }
+
+                    if (total != 0) {
+                        std::cout << " atributo_" << ++atributos_impressos
+                                  << " " << id_atributo << " " << total;
+                    }
+                }
+            }
+
+            if (atributos_impressos == 0) {
+                std::cout << " VAZIO";
+            }
+            std::cout << std::endl;
         }
     }
 
