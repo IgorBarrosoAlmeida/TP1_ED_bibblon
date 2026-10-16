@@ -1,6 +1,7 @@
 #ifndef CATALOGO_HPP
 #define CATALOGO_HPP
-#include "Matrizes.hpp"
+#include "MatrizModoL.hpp"
+#include "MatrizModoT.hpp"
 
 class Catalogo {
 private:
@@ -11,7 +12,11 @@ private:
 public:
     Catalogo();
     ~Catalogo();
-    void atualizar_modificador(int id_item, int id_atributo, int valor);
+
+    void add_item();
+    void add_atributo();
+
+    void atualizar_modificador(int id_item, int id_atributo, int modificador);
     void migrar_modo(char novo_modo);
 };
 

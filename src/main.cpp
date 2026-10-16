@@ -1,9 +1,10 @@
 #include "ArrayDinamico.hpp"
 #include "Atributo.hpp"
 #include "Aventureiro.hpp"
-#include "Estruturas.hpp"
+#include "Catalogo.hpp"
 #include "FilaEncomenda.hpp"
 #include "Item.hpp"
+#include "Structs.hpp"
 #include <fstream>
 #include <iostream>
 #include <string>
@@ -20,6 +21,7 @@ int main()
     ArrayDinamico<Item> itens;
     ArrayDinamico<Aventureiro> aventureiros;
     FilaEncomenda fila_de_encomendas = FilaEncomenda(1); // TO-DO: Mudar depois para um número maior
+    Catalogo catalogo;
 
     if (!arquivo.is_open()) {
         std::cout << "Erro ao abrir o arquivo!" << std::endl;
@@ -32,7 +34,7 @@ int main()
             char modo;
             arquivo >> modo;
 
-            // TO-DO: chamar migrar modo
+            catalogo.migrar_modo(modo);
 
             std::cout << comando << " " << modo << std::endl;
         } else if (comando == "A") {
@@ -42,6 +44,7 @@ int main()
             Atributo novo_atributo(nome_atributo);
 
             atributos.add_elemento_final(novo_atributo);
+            catalogo.add_atributo();
 
             std::cout << comando << " " << novo_atributo.get_id() << std::endl;
         } else if (comando == "I") {
@@ -51,6 +54,7 @@ int main()
             Item novo_item(nome_item);
 
             itens.add_elemento_final(novo_item);
+            catalogo.add_item();
 
             std::cout << comando << " " << novo_item.get_id() << std::endl;
 
@@ -119,6 +123,14 @@ int main()
             } else {
                 std::cout << "D " << nome_aventureiro << " VAZIO" << std::endl;
             }
+        } else if (comando == "M") {
+            int id_item, id_atributo, modificador;
+            arquivo >> id_item;
+            arquivo >> id_atributo;
+            arquivo >> modificador;
+
+            catalogo.atualizar_modificador(id_item, id_atributo, modificador);
+            std::cout << itens.get_elemento(id_item).get_nome() << " " << atributos.get_elemento(id_atributo).get_nome() << " " << modificador << std::endl;
         }
     }
 

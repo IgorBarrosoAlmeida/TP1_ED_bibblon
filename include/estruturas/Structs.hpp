@@ -15,4 +15,11 @@ struct Tripleta {
     int modificador;
 };
 
+// Celula da matriz de catalogo na representação "L"
+struct Celula {
+    Tripleta tripleta;
+    Celula* prox_item;
+    Celula* prox_atributo;
+};
+
 #endif

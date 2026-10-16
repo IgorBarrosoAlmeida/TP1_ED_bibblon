@@ -1,15 +1,15 @@
-#include "Matrizes.hpp"
+#include "MatrizModoT.hpp"
 
-// ==================================
-// Implementação da matriz no modo T
-// ==================================
+MatrizModoT::MatrizModoT(int l, int c)
+    : tripletas()
+{
+    this->l = l;
+    this->c = c;
+}
+
 MatrizModoT::MatrizModoT()
     : tripletas()
 {
-    if (l < 0 || c < 0) {
-        throw std::invalid_argument("Não é possível criar uma matriz com a quantidade de linhas ou colunas negativa");
-    }
-
     this->l = 0;
     this->c = 0;
 }
@@ -30,15 +30,6 @@ void MatrizModoT::inserir(int id_item, int id_atributo, int modificador)
     nova_tripleta.id_item = id_item;
     nova_tripleta.id_atributo = id_atributo;
     nova_tripleta.modificador = modificador;
-
-    if (id_item > this->l) {
-        // Se for maior que a quantidade de linhas, aumenta a quantidade de linhas
-        this->l = id_item;
-    }
-    if (id_atributo > this->c) {
-        // O mesmo para a coluna
-        this->c = id_atributo;
-    }
 
     int p = this->tripletas.get_tamanho();
     if (p > 0 && (this->tripletas.get_elemento(p - 1).id_item > id_item)
@@ -63,6 +54,19 @@ void MatrizModoT::inserir(int id_item, int id_atributo, int modificador)
 
     // Quando sai do while o p está na posição certa do novo elemento
     this->tripletas.set_elemento(nova_tripleta, p);
+}
+
+int MatrizModoT::get_c()
+{
+    return this->c;
+}
+int MatrizModoT::get_l()
+{
+    return this->l;
+}
+ArrayDinamico<Tripleta> MatrizModoT::get_tripletas()
+{
+    return this->tripletas;
 }
 
 int MatrizModoT::get(int id_item, int id_atributo)
@@ -106,25 +110,7 @@ void MatrizModoT::set(int id_item, int id_atributo, int modificador)
     }
 }
 
-int MatrizModoT::remover(int id_item, int id_atributo)
-{
-    if (id_item < 0 || id_item >= this->l || id_atributo < 0 || id_atributo >= this->c) {
-        throw std::invalid_argument("Posição invalida");
-    }
-
-    // TO-DO: implementar com busca binaria
-    for (int p = 0; p < this->tripletas.get_tamanho(); p++) {
-        Tripleta trip = this->tripletas.get_elemento(p);
-        if (trip.id_item == id_item && trip.id_atributo == id_atributo) {
-            int modificador = this->tripletas.remove_elemento_pos(p).modificador;
-            return modificador;
-        }
-    }
-
-    return 0;
-}
-
-void MatrizModoT::itens_por_atributo(int id_atributo)
+void MatrizModoT::print_coluna(int id_atributo)
 {
     if (id_atributo < 0 || id_atributo >= this->c) {
         throw std::invalid_argument("Posição invalida");
@@ -140,7 +126,7 @@ void MatrizModoT::itens_por_atributo(int id_atributo)
     std::cout << std::endl;
 }
 
-void MatrizModoT::atributo_por_item(int id_item)
+void MatrizModoT::print_linha(int id_item)
 {
     if (id_item < 0 || id_item >= this->c) {
         throw std::invalid_argument("Posição invalida");
@@ -154,7 +140,3 @@ void MatrizModoT::atributo_por_item(int id_item)
     }
     std::cout << std::endl;
 }
-
-// ==================================
-// Implementação da matriz no modo L
-// ==================================

@@ -1,7 +1,7 @@
 #ifndef FILA_ENCOMENDA_HPP
 #define FILA_ENCOMENDA_HPP
 #include "ArrayDinamico.hpp"
-#include "Estruturas.hpp"
+#include "Structs.hpp"
 
 // ESC-IMP: Escolhi implementar com vetor pela locilidade de referência e escolhi ser fila circular
 // para otimizar a remoção (sem precisar mover muitos elementos)

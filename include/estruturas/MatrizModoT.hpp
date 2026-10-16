@@ -1,7 +1,7 @@
-#ifndef MATRIZES_HPP
-#define MATRIZES_HPP
+#ifndef MATRIZE_MODO_T_HPP
+#define MATRIZE_MODO_T_HPP
 #include "ArrayDinamico.hpp"
-#include "Estruturas.hpp"
+#include "Structs.hpp"
 #include <iostream>
 #include <stdexcept>
 
@@ -15,23 +15,26 @@ class MatrizModoT {
 private:
     ArrayDinamico<Tripleta> tripletas;
     int l, c;
+    void inserir(int id_item, int id_atributo, int modificador);
 
 public:
+    MatrizModoT(int l, int c);
     MatrizModoT();
 
     // TO-DO: adicionar no if de adicionar item e atributo na main
     void add_item();
     void add_atributo();
 
-    void inserir(int id_item, int id_atributo, int modificador);
+    int get_c();
+    int get_l();
+    ArrayDinamico<Tripleta> get_tripletas();
     int get(int id_item, int id_atributo);
     void set(int id_item, int id_atributo, int modificador);
-    int remover(int id_item, int id_atributo);
 
     // Imprime itens que tem um atributo
-    void itens_por_atributo(int id_atributo);
+    void print_coluna(int id_atributo);
     // Imprime atributos de um item
-    void atributo_por_item(int id_item);
+    void print_linha(int id_item);
 
     // TO-DO: suporte as operações necessárias para calculo das metricas
 };
